@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gebruiker details</title>
+    <link href="{{url_for('static', path='/css/user_details.css')}}" rel="stylesheet"/>
+    {% include 'navbar.html' %}
+</head>
+<body>
+<div class="paperpage">
+    <button class="backbutton" onclick="history.back()"><h4>Ga Terug</h4></button>
+    <div class="user-details-container">
+        <div class="page-title">
+            <h1 class="titel">Gebruiker gegevens</h1>
+            <h3 class="pageinfo">Alle informatie over deze gebruiker.</h3>
+        </div>
+        <div id="gebruikerDetailscontainer">
+
+        </div>
+        <button id="bewerkGebruikerBtn">Gegevens Bewerken</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var userId = window.location.pathname.split('/').pop();
+
+            $.ajax({
+                url: "/api/gebruikers/" + userId,
+                type: "GET",
+                dataType: "json",
+                success: function(response) {
+                    var gebruikerDetailsHTML = "";
+                    gebruikerDetailsHTML += "<h3>Website gegevens</h3>";
+                    gebruikerDetailsHTML += "<p>Gebruikersnaam: <span>" + response.gebruiker.gebruikersnaam + "</span></p>";
+                    gebruikerDetailsHTML += "<p>Id: <span>" + response.gebruiker.id + "</span></p>";
+                    gebruikerDetailsHTML += "<p>Wachtwoord: <span>" + response.gebruiker.password + "</span></p>";
+                    gebruikerDetailsHTML += "<h3>Persoons gegevens</h3>";
+                    gebruikerDetailsHTML += "<p>Voornaam: <span>" + response.gebruiker.voornaam + "</span></p>";
+                    gebruikerDetailsHTML += "<p>Achternaam: <span>" + response.gebruiker.tussenvoegsel + " " + response.gebruiker.achternaam + "</span></p>";
+                    gebruikerDetailsHTML += "<p>Geboortedatum: <span>" + response.gebruiker.geboortedatum + "</span></p>";
+                    gebruikerDetailsHTML += "<p>Postcode: <span>" + response.gebruiker.postcode + "</span></p>";
+                    gebruikerDetailsHTML += "<p>Adres: <span>" + response.gebruiker.adres + "</span></p>";
+                    gebruikerDetailsHTML += "<p>Adres toevoeging: <span>" + response.gebruiker.toevoegingadres + "</span></p>";
+                    gebruikerDetailsHTML += "<h3>Contactgegevens</h3>";
+                    gebruikerDetailsHTML += "<p>Email: <span>" + response.gebruiker.email + "</span></p>";
+                    gebruikerDetailsHTML += "<p>Telefoonnummer: <span>" + response.gebruiker.telefoonnummer + "</span></p>";
+                    gebruikerDetailsHTML += "<h3>Gebruiker rol</h3>";
+                    gebruikerDetailsHTML += "<p>Admin: <span>" + response.gebruiker.isadmin + "</span></p>";
+                    gebruikerDetailsHTML += "<p>Beheerder: <span>" + response.gebruiker.isbeheerder + "</span></p>";
+                    gebruikerDetailsHTML += "<p>Toezichthouder: <span>" + response.gebruiker.istoezichthouder + "</span></p>";
+                    gebruikerDetailsHTML += "<p>Ervaringsdeskundige: <span>" + response.gebruiker.iservaringsdeskundige + "</span></p>";
+
+                    $("#gebruikerDetailscontainer").html(gebruikerDetailsHTML);
+
+                    $("#bewerkGebruikerBtn").click(function(){
+                        console.log("geklikt");
+                        window.location.href = "/gebruikers/" + userId + "/edit";
+                    });
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error:", textStatus, errorThrown);
+                }
+            });
+        });
+    </script>
+
+
+
+
+</div>
+
+</body>
+</html>

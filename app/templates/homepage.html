@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{url_for('static',path="/css/homepage.css")}}" rel="stylesheet"/>
+    <title>Acceshub</title>
+</head>
+<body>
+<header>
+    <h1>Acceshub</h1>
+</header>
+<div class="container">
+    <div class="left-section">
+        <div class="tekst-container tussen-margin">
+            <div class="welkom-tekst">
+                <h2> Welkom op de Acceshub Portal!</h2>
+
+                <p>Klik hieronder om in te loggen, of om een account te registreren.</p>
+            </div>
+        </div>
+        <div class="knoppen">
+            <a href="/login" class="btn">Inloggen</a>
+            <a href="/register" class="btn">Registreren</a>
+        </div>
+    </div>
+    <div class="right-section">
+        <div class="logo-container">
+            <img class="logo" src="/static/images/stichting_accessibility_logo.svg" alt="Logo Stichting Accessibility">
+        </div>
+    </div>
+</div>
+
+<div class="tussen-content">
+        <div class="tussensectie">
+            <h2 class="tussen-heading">Over deze pagina</h2>
+            <p class="tussen-par">De Accesshub portal is een pagina waar ervarignsdeskundigen in contact kunnen komen met bedrijven of organisaties
+            door middel van onderzoeksvragen. Deze vragen worden klaargemaakt door de organisaties of bedrijven. </p>
+            <br>
+            <p>Daarnaast heeft u de mogelijkheid om een account te registreren. Zodra u deze heeft aangemaakt en deze is goedgekeurd door Stichting Accessibility,
+                krijgt u toegang tot de volledige website. </p>
+        </div>
+    </div>
+</div>
+
+<div class="eind-content">
+    <div class="ondersectie">
+        <h2>Contact</h2>
+        <div class="contact-items">
+          <ul class="contact_items content-list">
+              <li class="contact_item_tel">
+                  <a class="contact_telefoon" href="tel:00310302398270">
+                      <span class="text">030 - 239 82 70</span>
+                  </a>
+              </li>
+              <li class="contact_item_mail">
+                  <a class="contact_mail" href="mailto:info@accessibility.nl">
+                      <span class="text">info@accessibility.nl</span>
+                  </a>
+              </li>
+          </ul>
+        </div>
+        <div class="social-media-items">
+            <ul class="social_media_items content-list">
+                <li class="social_item_linkedin">
+                    <a href="https://nl.linkedin.com/company/accessibilitynl" class="social__link social__link--linkedin has-bordered-hover">
+                        <span class="koptekst">LinkedIn</span>
+                    </a>
+                </li>
+                <li class="social_item_twitter">
+                    <a href="https://twitter.com/AccessibilityNL" class="social__link social__link--twitter">
+                        <span class="koptekst">Twitter</span>
+                    </a>
+                </li>
+                <li class="social_item_youtube">
+                    <a href="https://www.youtube.com/channel/UCSFsnRBNIDCgYJEW_ZLfTrg" class="social-link social-link-youtube">
+                        <span class="koptekst">YouTube</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer">
+    <p>&copy; 2024 Stichting Accessibility</p>
+
+</footer>
+</body>
+</html>

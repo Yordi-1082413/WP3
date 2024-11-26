@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gebruiker bewerken</title>
+    <link href="{{url_for('static', path='/css/edit_user.css')}}" rel="stylesheet"/>
+    {% include 'navbar.html' %}
+</head>
+<body>
+<div class="paperpage">
+    <button class="backbutton" onclick="history.back()"><h4>Ga Terug</h4></button>
+    <div class="page-title">
+        <h1 class="titel">Gebruiker bewerken</h1>
+    </div>
+    <h3 class="pageinfo">Gegevens van de gebruiker wijzigen.</h3>
+    <div class="edit-user-form">
+        <form id="editUserForm">
+            <h2>Website gegevens</h2>
+            <label for="gebruikersnaam">Gebruikersnaam</label>
+            <input type="text" id="gebruikersnaam" name="gebruikersnaam" value="{{ gebruiker.gebruikersnaam }}" required>
+            <h2>Persoons gegevens</h2>
+            <label for="voornaam">Voornaam</label>
+            <input type="text" id="voornaam" name="voornaam" value="{{ gebruiker.voornaam }}" required>
+
+            <label for="achternaam">Achternaam</label>
+            <input type="text" id="achternaam" name="achternaam" value="{{ gebruiker.achternaam }}" required>
+
+            <label for="geboortedatum">Geboortedatum</label>
+            <input type="text" id="geboortedatum" name="geboortedatum" value="{{ gebruiker.geboortedatum }}" required>
+
+            <label for="gender">Gender</label>
+            <input type="text" id="gender" name="gender" value="{{ gebruiker.gender }}" required>
+
+             <label for="postcode">Postcode</label>
+            <input type="text" id="postcode" name="postcode" value="{{ gebruiker.postcode }}" required>
+
+             <label for="adres">Adres</label>
+            <input type="text" id="adres" name="adres" value="{{ gebruiker.adres }}" required>
+
+             <label for="toevoegingadres">Toevoeging adres</label>
+            <input type="text" id="toevoegingadres" name="toevoegingadres" value="{{ gebruiker.toevoegingadres }}" required>
+            <h2>Contact gegevens</h2>
+
+             <label for="telefoonnummer">Telefoonnummer</label>
+            <input type="text" id="telefoonnummer" name="telefoonnummer" value="{{ gebruiker.telefoonnummer }}" required>
+
+             <label for="email">Email</label>
+            <input type="text" id="email" name="email" value="{{ gebruiker.email }}" required>
+
+            <h2>Rollen</h2>
+            <label for="istoezichthouder">Toezichthouder</label>
+            <input type="checkbox" id="istoezichthouder" name="rol_istoezichthouder" value="istoezichthouder" {% if gebruiker.istoezichthouder %} checked {% endif %}>
+
+            <label for="isadmin">Admin</label>
+            <input type="checkbox" id="isadmin" name="rol_isadmin" value="isadmin" {% if gebruiker.isadmin %} checked {% endif %}>
+
+            <label for="iservaringsdeskundige">Ervaringsdeskundige</label>
+            <input type="checkbox" id="iservaringsdeskundige" name="rol_iservaringsdeskundige" value="iservaringsdeskundige" {% if gebruiker.iservaringsdeskundige %} checked {% endif %}>
+
+            <label for="isbeheerder">Beheerder</label>
+            <input type="checkbox" id="isbeheerder" name="rol_isbeheerder" value="isbeheerder" {% if gebruiker.isbeheerder %} checked {% endif %}>
+
+
+            <button type="submit">Gegevens opslaan</button>
+        </form>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+$(document).ready(function () {
+    $('input[type="checkbox"][name="rol"]').change(function () {
+        if ($(this).prop('checked')) {
+            $('input[type="checkbox"][name="rol"]').not(this).prop('disabled', true);
+        } else {
+            $('input[type="checkbox"][name="rol"]').prop('disabled', false);
+        }
+    });
+
+    $('#editUserForm').submit(function(e) {
+        e.preventDefault();
+
+        var formData = {
+            gebruikersnaam: $('#gebruikersnaam').val(),
+            voornaam: $('#voornaam').val(),
+            achternaam: $('#achternaam').val(),
+            geboortedatum: $('#geboortedatum').val(),
+            gender: $('#gender').val(),
+            postcode: $('#postcode').val(),
+            adres: $('#adres').val(),
+            toevoegingadres: $('#toevoegingadres').val(),
+            telefoonnummer: $('#telefoonnummer').val(),
+            email: $('#email').val(),
+            rol_istoezichthouder: $('#istoezichthouder').is(':checked'),
+            rol_isadmin: $('#isadmin').is(':checked'),
+            rol_iservaringsdeskundige: $('#iservaringsdeskundige').is(':checked'),
+            rol_isbeheerder: $('#isbeheerder').is(':checked')
+        };
+
+        $.ajax({
+            url: "/api/gebruikers/{{ gebruiker.id }}/edit",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(formData),
+            success: function (response) {
+                alert(response.message);
+                window.location.href = "/gebruikers";
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("Error: " + textStatus, errorThrown);
+                alert("Error: Er is een fout opgetreden bij het bijwerken van de gebruiker gegevens.");
+            }
+        });
+    });
+});
+</script>
+</div>
+</body>
+</html>

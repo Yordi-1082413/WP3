@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="{{url_for('static', path='/css/admindash.css')}}" rel="stylesheet"/>
+    {% include 'navbar.html' %}
+</head>
+
+<body>
+<div class="navcontainer">
+    <nav class="navbar admin">
+        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+        <div class="nav-title"> <h2>Admin Dashboard</h2></div>
+  </nav>
+</div>
+
+<div class="paperpage">
+    <div class="container">
+        <h3 class="pageinfo">De admin pagina dient om een overzicht te tonen van de applicatie. U kunt hier alles zien wat gebeurt op de applicatie.</h3>
+        <div class="section" id="gegevens-totaal">
+            <h1 class="section-title">Gegevens totaal</h1>
+            <hr class="lijn">
+            <div class="statistieken-container">
+                <div class="statistiek">
+                    <h2 class="statistiek-titel">Gebruikers pagina</h2>
+                    <h4 class="statistiekinfo-omsch">Pagina van alle gebruikers</h4>
+                    <h4 class="statistiekinfo">Totaal aantal: <span> {{ total_users }} </span></h4>
+                    <a href="/gebruikers" class="statbutton"><h4>Bekijk Gebruikers</h4></a>
+                </div>
+                <div class="statistiek">
+                    <h2 class="statistiek-titel">Gebruiker aanmeldingen</h2>
+                    <h4 class="statistiekinfo-omsch">Gebruikers die zich aanmelden</h4>
+                    <h4 class="statistiekinfo">Totaal aantal: <span> {{ total_user_requests }} </span></h4>
+                    <a href="/reviewexpertrequests" class="statbutton"><h4>Bekijk Aanmeldingen</h4></a>
+                </div>
+                <div class="statistiek">
+                    <h2 class="statistiek-titel">Onderzoeken inschrijvingen</h2>
+                    <h4 class="statistiekinfo-omsch">Gebruiker inschrijvingen op onderzoeken</h4>
+                    <h4 class="statistiekinfo">Totaal aantal: <span> {{ total_research_registrations }} </span></h4>
+                    <a href="/getallexpertresearchregistrations" class="statbutton"><h4>Bekijk Onderzoeken</h4></a>
+                </div>
+                <div class="statistiek">
+                    <h2 class="statistiek-titel">Onderzoek aanvragingen</h2>
+                    <h4 class="statistiekinfo-omsch">Bedrijven die onderzoeken indienen</h4>
+                    <h4 class="statistiekinfo">Totaal aantal: <span> {{ total_research_requests }} </span></h4>
+                    <a href="/reviewcompanyrequests" class="statbutton"><h4>Bekijk Aanvragingen</h4></a>
+                </div>
+            </div>
+        </div>
+        <div class="section" id="live-updates">
+            <h1 class="section-title">Live Updates</h1>
+            <hr class="lijn">
+            <div id="latest-users">
+                <h2><a href="/gebruikers"><span>Laatst toegevoegde gebruikers:</span></a></h2>
+                <ul id="latest-users-list"></ul>
+            </div>
+            <div id="latest-registrations">
+                <h2><a href="/getallexpertresearchregistrations"><span>Laatst onderzoek inschrijvingen:</span></a></h2>
+                <ul id="latest-registrations-list"></ul>
+            </div>
+            <div id="latest-requests">
+                <h2><a href="/reviewcompanyrequests"><span>Laatst aangevraagde onderzoeken:</span></a></h2>
+                <ul id="latest-requests-list"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar" id="sidebar">
+    <div class="close-btn" onclick="toggleMenu()">X</div>
+    <ul class="menu">
+        <li><a href="/admin" class="active">Admin Dashboard</a></li>
+        <li><h3>Gebruikers</h3></li>
+        <hr class="lijntje">
+        <li><a href="/gebruikers">> Gebruikers pagina</a></li>
+        <li><a href="/reviewexpertrequests">> Gebruiker aanmeldingen</a></li>
+        <li><h3>Onderzoeken</h3></li>
+        <hr class="lijntje">
+        <li><a href="/getallexpertresearchregistrations">> Onderzoeken aanmeldingen</a></li>
+        <li><a href="/reviewcompanyrequests">> Bedrijven aanmeldingen</a></li>
+    </ul>
+</div>
+
+<script>
+  function toggleMenu() {
+    const sidebar = document.getElementById('sidebar');
+    const isOpen = sidebar.classList.contains('open');
+    if (isOpen) {
+      sidebar.style.left = '-240px';
+    } else {
+      sidebar.style.left = '0';
+    }
+    sidebar.classList.toggle('open');
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+      function getLastUsers() {
+          fetch("/api/live_updates/users")
+            .then(response => response.json())
+            .then(data => {
+                const lastUserList = document.getElementById("latest-users-list");
+                lastUserList.innerHTML = "";
+                data.last_users.forEach(user => {
+                    const listItem = document.createElement("li");
+                    listItem.innerHTML = `<b>ID:</b> ${user.id}, <b>Gebruikersnaam:</b>${user.gebruikersnaam}, <b>Email:</b> ${user.email}`;
+                    lastUserList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error: Ophalen gebruikers mislukt:', error));
+      }
+    function getLastRegistrations() {
+        fetch("/api/live_updates/research_registrations")
+            .then(response => response.json())
+            .then(data => {
+                const lastRegistrationsList = document.getElementById("latest-registrations-list");
+                lastRegistrationsList.innerHTML = "";
+                data.last_research_registrations.forEach(registration => {
+                    const listItem = document.createElement("li");
+                    listItem.innerHTML = `<b>ID:</b> ${registration.id}, <b>Aanvraag ID:</b> ${registration.onderzoek_id}`;
+                    lastRegistrationsList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error: Ophalen laatste onderzoek registraties:', error));
+    }
+
+    function getLastRequests() {
+        fetch("/api/live_updates/research_requests")
+            .then(response => response.json())
+            .then(data => {
+                const lastRequestsList = document.getElementById("latest-requests-list");
+                lastRequestsList.innerHTML = "";
+                data.last_research_requests.forEach(request => {
+                    const listItem = document.createElement("li");
+                    listItem.innerHTML = `<b>ID:</b> ${request.id}, <b>Onderzoekstitel:</b> ${request.titel}, <b>Status:</b> ${request.Status}`;
+                    lastRequestsList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error: Ophalen laatste onderzoen aanvragingen:', error));
+    }
+    getLastUsers();
+    getLastRegistrations();
+    getLastRequests();
+
+
+    setInterval(getLastUsers, 30000);
+    setInterval(getLastRegistrations, 30000);
+    setInterval(getLastRequests, 30000);
+});
+</script>
+</body>
+</html>

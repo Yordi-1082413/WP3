@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+    <link href="{{url_for('static',path="/css/userdash.css")}}" rel="stylesheet"/> 
+    {% include 'navbar.html' %}
+</head>
+
+  <body>
+    <div class="parent">
+      <div class="paperpage">
+        <div id="requestContainer">
+        </div>
+      </div>
+    </div>
+    <script src="/static/js/jqeury.js"></script>
+
+    <script>
+    $(document).ready(function () {
+      function fetchUnderzoeken() {
+        $.ajax({
+          url: "/api/onderzoeken",
+          type: "GET",
+          dataType: "json",
+          success: function (response) {
+            var onderzoekenHtml = "";
+            $.each(response.onderzoeken, function (index, onderzoek) {
+              onderzoekenHtml += '<div class="requestItem">';
+              onderzoekenHtml += "<h2>" + onderzoek.Titel + "</h2>";
+              onderzoekenHtml += "<p>Locatie: <span>" + onderzoek.Locatie + "</span></p>";
+              onderzoekenHtml += "<p>Beschrijving: <span>" + onderzoek.Beschrijving + "</span></p>";
+              onderzoekenHtml += "<p>Beperking gezocht: <span>" + onderzoek.Doelgroep_beperking + "</span></p>";
+              onderzoekenHtml += "<p>Leeftijd doelgroep: <span>" + onderzoek.Doelgroep_leeftijd_van + "/" + onderzoek.Doelgroep_leeftijd_tot + "</span></p>";
+              onderzoekenHtml += '<div class="actionContainer"><a href="#" class="viewDetailsBtn" aria-label="View details about ' + onderzoek.Titel + '">Meer informatie</a></div>';
+              onderzoekenHtml += "</div>";
+            });
+            $("#requestContainer").html(onderzoekenHtml); // Insert generated HTML into the page
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error: " + textStatus, errorThrown);
+          },
+        });
+      }
+
+      // on first run execute the fetchUnderzoeken function
+      fetchUnderzoeken();
+
+      // Sets an interval, runs the fetchUnderzoeken function every  10 seconds
+      setInterval(fetchUnderzoeken,  10000);
+    });
+    </script>
+  </body>
+</html>

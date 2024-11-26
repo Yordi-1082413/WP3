@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gebruiker Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link href="{{url_for('static',path="/css/userdash.css")}}" rel="stylesheet" />
+    {% include 'navbar.html' %}
+ </head>
+
+ <body>
+    <div class="parent">
+      <div class="paperpage">
+          <button onclick="history.back()" class="backbutton">
+          <i class="fas fa-arrow-left"></i>
+         </button>
+        <h3>Hallo beheerder, op deze pagina kan je aanvragen van bedrijven inzien om hierna deze goed of fout te keuren.</h3>
+            <div id="requestContainer">
+        </div>
+      </div>
+    </div>
+    <script src="/static/js/jqeury.js"></script>
+
+    <script>
+        $(document).ready(function () {
+          function fetchAllInactiveCompanyRequests() {
+            $.ajax({
+              url: "/api/onderzoeken/inactive",
+              type: "GET",
+              dataType: "json",
+              success: function (response) {
+                var requestHtml = "";
+                if(response.inactive_onderzoeken.length === 0){
+                      requestHtml += '<h4 class="noinfo">Er zijn op het moment geen inactieve onderzoeken!</h4>';
+                    }
+                $.each(response.inactive_onderzoeken, function (index, onderzoek) {
+                    requestHtml += '<div class="requestItem">';
+                    requestHtml += '<div class="requestIteminfo"> <h2>' + onderzoek.titel + '</h2></div>';
+                    requestHtml += '<div class="requestIteminfo"><b>Status: </b>' + onderzoek.Status + '</div>';
+                    requestHtml += '<div class="requestIteminfo"><b>Beschrijving: </b>' + onderzoek.Beschrijving + '</div>';
+                    requestHtml += '<div class="requestIteminfo"><b>Datum_vanaf: </b>' + onderzoek.Datum_vanaf + '</div>';
+                    requestHtml += '<div class="requestIteminfo"><b>Datum_tot: </b>' + onderzoek.Datum_tot + '</div>';
+                    requestHtml += '<div class="requestIteminfo"><b>Type_onderzoek: </b>' + onderzoek.type_onderzoek + '</div>';
+                    requestHtml += '<div class="requestIteminfo"><b>Locatie: </b>' + onderzoek.Locatie + '</div>';
+                    requestHtml += '<div class="requestIteminfo"><b>Beloning: </b>' + onderzoek.Beloning + '</div>';
+                    requestHtml += '<div class="requestIteminfo"><b>Doelgroep_leeftijd_van: </b>' + onderzoek.Doelgroep_leeftijd_van + '</div>';
+                    requestHtml += '<div class="requestIteminfo"><b>Doelgroep_leeftijd_tot: </b>' + onderzoek.Doelgroep_leeftijd_tot + '</div>';
+                    requestHtml += '<div class="requestIteminfo"><b>Doelgroep_beperking: </b>' + onderzoek.Doelgroep_beperking + '</div>';
+
+                    requestHtml += '<div class="btn-group">';
+                    requestHtml += '<button class="acceptRequestButton" data-id="' + onderzoek.id + '">Goedkeuren</button>';
+                    requestHtml += '<button class="declineRequestButton" data-id="' + onderzoek.id + '">Afkeuren en verwijderen</button>';
+                    requestHtml += '</div>';
+
+                    requestHtml += "</div>";
+                });
+                $("#requestContainer").html(requestHtml);
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                console.error("Error: " + textStatus, errorThrown);
+              },
+            });
+          }
+    
+          fetchAllInactiveCompanyRequests();
+    
+          setInterval(fetchAllInactiveCompanyRequests,  10000);
+
+
+      // Handle accept button click
+      $(document).on("click", ".acceptRequestButton", function () {
+          var onderzoekId = $(this).data("id");
+          $.ajax({
+            url: "/api/onderzoeken/accept/" + onderzoekId,
+            type: "POST",
+            success: function (response) {
+                showMessage("Onderzoek geaccepteerd.", true);
+                fetchAllInactiveCompanyRequests();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                showMessage("Er is een fout opgetreden!", false);
+                console.error("Error: " + textStatus, errorThrown);
+            },
+          });
+      });
+
+      // Handle decline button click
+      $(document).on("click", ".declineRequestButton", function () {
+          var onderzoekId = $(this).data("id");
+          $.ajax({
+            url: "/api/onderzoeken/delete/" + onderzoekId,
+            type: "DELETE",
+            success: function (response) {
+                showMessage("Onderzoek verwijderd.", false);
+                fetchAllInactiveCompanyRequests();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                showMessage("Er is een fout opgetreden!", false);
+                console.error("Error: " + textStatus, errorThrown);
+            },
+          });
+      });
+        });
+        </script>
+ </body>
+</html>

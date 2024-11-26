@@ -1,0 +1,106 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height:  1.6;
+  color: #333;
+  background-color: #f4f4f4;
+  margin:  0;
+  padding:  0;
+}
+
+
+h1 {
+  font-family:var(--font-display),sans-serif;
+  font-size:40px;
+  font-weight:380;
+  letter-spacing:-.01em;
+  line-height:95%;
+  text-align: center;
+  padding:  20px;
+
+}
+
+.page-end-rounded {
+  --tw-border-opacity:1;
+  border-bottom-left-radius:36px;
+  border-bottom-right-radius:36px;
+  border-bottom-width:1px;
+  border-color:rgb(207 207 207/var(--tw-border-opacity));
+  border-style:solid;
+  overflow:hidden
+}
+
+
+#requestContainerExpert {
+  max-width:  960px;
+  margin: auto;
+  padding:  20px;
+}
+
+.actionContainerExpert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top:  10px;
+}
+
+.viewRequestButton {
+  background-color: rgb(237,237,255);
+  border: none;
+  color: rgb(48,80,235);
+  padding: 6px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 200px;
+  border-radius: 8px;
+  font-weight: bold;
+
+}
+.viewRequestButton:hover, .viewRequestButton:focus {
+  background-color: rgb(48,80,235);
+  color: white;
+}
+
+
+
+/* Accessibility improvements */
+a:focus {
+  outline: none;
+}
+
+a:hover, a:focus {
+  text-decoration: none; 
+}
+
+.highContrastText {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.paperpage {
+  width: 65%;
+  min-height: 100vh;
+  padding: 20mm;
+  margin: 10mm auto; /* Center the paper page horizontally */
+  background: white; /* Paper color */
+  box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1); /* Optional: Adds shadow around the paper to give depth */
+}
+
+.pageinfo{
+  color: rgb(166,175,184);
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+h2{
+  text-align: center;
+}
+
+@media print {
+  body, .paperPage {
+      margin: 0;
+      box-shadow: none;
+  }
+}

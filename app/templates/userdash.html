@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gebruiker Dashboard</title>
+  <link href="{{url_for('static',path=" /css/userdash.css")}}" rel="stylesheet" /> {% include 'navbar.html' %}
+</head>
+
+<body>
+  <div class="parent">
+    <div class="paperpage">
+      <div id="onderzoekPopupModal" role="dialog" aria-modal="true" tabindex="-1" style="display: none">
+        <div class="modal-content">
+          <p>Placeholder modal text You shouldn't see this O.O</p>
+          <p>Please try again later</p>
+        </div>
+      </div>
+
+      <h1>Dashboard voor testaanvragen</h1>
+      <h3>Hier kan je jouw aanmelden voor onderzoeken,
+        Kies een of meerdere onderzoeken die bij jou passen</h2>
+        <div id="requestContainer"></div>
+    </div>
+  </div>
+  <script src="/static/js/jqeury.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      function fetchOnderzoeken() {
+        $.ajax({
+          url: "/api/onderzoeken",
+          type: "GET",
+          dataType: "json",
+          success: function (response) {
+            var onderzoekenHtml = "";
+            $.each(response.onderzoeken, function (index, onderzoek) {
+              onderzoekenHtml += `
+              <section class="requestContainer">
+              <article class="requestItem">
+                  <h2>${onderzoek.Titel}</h2>
+                  <p>Locatie: <span>${onderzoek.Locatie}</span></p>
+                  <p>Beschrijving: <span>${onderzoek.Beschrijving}</span></p>
+                  <p>Beperking gezocht: <span>${onderzoek.Doelgroep_beperking}</span></p>
+                  <p>Leeftijd doelgroep: <span>${onderzoek.Doelgroep_leeftijd_van}/${onderzoek.Doelgroep_leeftijd_tot}</span></p>
+                  <div class="actionContainer" role="group">
+                    <a id="moreinfobutton" class="viewDetailsBtn" data-id="${onderzoek.id}" aria-label="View details about ${onderzoek.Titel}">Meer informatie</a>
+                  </div>
+              </article>
+              </section>
+              `;
+            });
+            $("#requestContainer").html(onderzoekenHtml); // Insert generated HTML into the page
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error: " + textStatus, errorThrown);
+          },
+        });
+      }
+
+      // on first run execute the fetchOnderzoeken function
+      fetchOnderzoeken();
+
+      // Sets an interval, runs the fetchOnderzoeken function every  10 seconds
+      setInterval(fetchOnderzoeken, 10000);
+    });
+
+    // Popup functions/fetch
+
+    $(document).on("click", "#moreinfobutton", function () {
+      $("#onderzoekPopupModal").fadeIn();
+    });
+
+    // Close the modal when clicking outside of it
+    $(document).on("click", function (event) {
+      if (!$(event.target).closest(".modal-content").length) {
+        $("#onderzoekPopupModal").hide();
+      }
+    });
+
+    $(document).on("click", ".viewDetailsBtn", function () {
+      var onderzoekId = $(this).data("id");
+      $.ajax({
+        url: `/api/onderzoeken/details/${onderzoekId}`,
+        type: "GET",
+        dataType: "json",
+        success: function (modalonderzoek) {
+          // Adds the info in the modal
+          $("#onderzoekPopupModal .modal-content").html(`
+          <span onclick="$('#onderzoekPopupModal').fadeOut()" class="close">&times;</span>
+            <h2>${modalonderzoek.Titel}</h2>
+            <p><strong>Beschrijving:</strong> ${modalonderzoek.Beschrijving}</p>
+            <p><strong>Doelgroep beperking:</strong> ${modalonderzoek.Doelgroep_beperking}</p>
+            <p><strong>Type onderzoek:</strong> ${modalonderzoek.Type_onderzoek}</p>
+            <p><strong>Locatie:</strong> ${modalonderzoek.Locatie}</p>
+            <p><strong>Doelgroep leeftijd van:</strong> ${modalonderzoek.Doelgroep_leeftijd_van}</p>
+            <p><strong>Doelgroep leeftijd tot:</strong> ${modalonderzoek.Doelgroep_leeftijd_tot}</p>
+            <p><strong>Datum vanaf:</strong> ${modalonderzoek.Datum_vanaf}</p>
+            <p><strong>Datum tot:</strong> ${modalonderzoek.Datum_tot}</p>
+            <p><strong>Met beloning:</strong> ${modalonderzoek.Met_beloning}</p>
+            <p><strong>Beloning:</strong> ${modalonderzoek.Beloning}</p>
+
+            <div class="knoppen">
+              <a id="submitRequest" data-id="${modalonderzoek.id}" class="btn">Aanvraag</a>
+            </div>
+
+
+            <dialog id="confirmDialog">
+            <p>Weet je zeker dat je wilt aanmelden?</p>
+            <button id="confirmAccept">Ja</button>
+            <button id="confirmCancel">Nee</button>
+            </dialog>
+
+      `);
+          $("#onderzoekPopupModal").show();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          showMessage("Error bij het inladen van de pagina, herlaad de pagina of probeer het later weer", false);
+          console.error("Error: " + textStatus, errorThrown);
+        },
+      });
+    });
+
+
+    $(document).on("click", "#submitRequest", function () {
+      var onderzoekId = $(this).data("id");
+      var dialog = document.getElementById('confirmDialog');
+
+      // Show the dialog
+      dialog.showModal();
+
+      // Handle accept button click
+      document.getElementById('confirmAccept').addEventListener('click', function () {
+        dialog.close();
+        // Proceed with the AJAX call
+        $.ajax({
+          url: "/api/onderzoeken/apply/" + onderzoekId,
+          type: "GET",
+          success: function (response) {
+            showMessage("Je hebt een aanvraag gestuurd!", true);
+            $("#onderzoekPopupModal").fadeOut();
+            $(window).scrollTop(0);
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            showMessage("Je bent al ingeschreven!", false);
+            $("#onderzoekPopupModal").fadeOut();
+            $(window).scrollTop(0);
+          }
+        });
+      });
+
+      // Handle cancel button click
+      document.getElementById('confirmCancel').addEventListener('click', function () {
+        dialog.close();
+        $("#onderzoekPopupModal").fadeOut();
+      });
+    });
+
+  </script>
+</body>
+
+</html>

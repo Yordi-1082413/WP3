@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gebruikers</title>
+    <link href="{{url_for('static', path='/css/gebruiker_lijst.css')}}" rel="stylesheet"/>
+    {% include 'navbar.html' %}
+</head>
+<body>
+    <div class="parent">
+        <div class="paperpage">
+            <button class="backbutton" onclick="history.back()"><h4>Ga Terug</h4></button>
+            <h1 class="titel">Alle gebruikers</h1>
+            <h3 class="pageinfo">Hier vindt u een overzicht van elke gebruiker op de pagina. U kunt ze inzien en bewerken.</h3>
+            <div id="requestContainerGebruiker">
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/jqeury.js"></script>
+    <script>
+        $(document).ready(function () {
+            function fetchUsers() {
+                $.ajax({
+                    url: "/api/gebruikers",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response.requests)
+                        var gebruikersHTML = "";
+                        $.each(response.gebruikers, function (index, gebruiker) {
+                            gebruikersHTML += '<div class="gebruikerItem">';
+                            gebruikersHTML += '<div class="gebruikerItemInfo"><b>Gebruikersnaam: </b>' + gebruiker.gebruikersnaam + '</div>';
+                            gebruikersHTML += '<div class="gebruikerItemInfo"><b>Email: </b>' + gebruiker.email + '</div>';
+                            gebruikersHTML += '<div class="gebruikerItemInfo"><b>Telefoonnummer: </b>' + gebruiker.telefoonnummer + '</div>';
+                            gebruikersHTML += '<div class="actionBtn-group">'
+                            gebruikersHTML += '<a href="#" class="viewDetailsBtn" data-user-id="' + gebruiker.id + '">Meer informatie</a>';
+                            gebruikersHTML += '<a href="#" class="editUserBtn" data-user-id="' + gebruiker.id + '">Gebruiker Bewerken</a></div>'; // Removed </div>
+                            gebruikersHTML += "</div>";
+                        });
+                        $("#requestContainerGebruiker").html(gebruikersHTML);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Error: " + textStatus, errorThrown);
+                    },
+                });
+            }
+
+            fetchUsers();
+
+
+            setInterval(fetchUsers, 10000);
+
+
+            $(document).on('click', '.viewDetailsBtn', function(e) {
+                e.preventDefault();
+                var userId = $(this).data('user-id');
+                window.location.href = "/gebruikers/" + userId;
+            });
+
+            $(document).on('click', '.editUserBtn', function(e) {
+                e.preventDefault();
+                var userId = $(this).data('user-id');
+                window.location.href = "/gebruikers/" + userId + "/edit";
+            });
+
+
+        });
+    </script>
+</body>
+</html>

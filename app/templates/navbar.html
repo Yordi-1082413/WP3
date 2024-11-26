@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/static/js/global.js"></script>
+
+<style>
+  .navcontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom:  10px;
+    margin-top:  10px;
+  }
+
+  .navbar{
+    display: flex;
+    width:  80%;
+    height:  20px;
+    gap:  50px;
+    margin-top:  16px;
+    justify-content: center;
+    align-items: center;
+    border-radius:  16px;
+    padding:  15px;
+    background-color:rgb(48  48  48);
+    box-shadow:  0  10px  15px -3px rgba(0,  0,  0,  0.1),  0  4px  6px -2px rgba(0,  0,  0,  0.05);
+  }
+
+  .navbar a{
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+
+  .logo {
+    margin-right: auto;
+  }
+
+  .logo img {
+    margin-top: 5px;
+    width: 65px;
+    height: auto;
+    mix-blend-mode: lighten;
+    }
+
+  #successMessage {
+    background-color: #4CAF50; 
+    color: white; 
+    padding:  10px;
+    text-align: center; 
+    border-radius:  5px; 
+  }
+
+  #ErrorMessage {
+    background-color: #af4c4c; 
+    color: white; 
+    padding:  10px;
+    text-align: center; 
+    border-radius:  5px; 
+  }
+
+</style>
+</head>
+<body>
+
+<div id="successMessage" style="display: none;">Je hebt een aanvraag gestuurd!</div>
+<div id="ErrorMessage" style="display: none;">Je bent al ingeschreven!</div>
+<div class="navcontainer">
+<nav role="navigation" class="navbar" aria-label="Main Navigation">
+  <a class="logo" href="/torolepage"><img alt="Logo" src="https://www.accessibility.nl/files/styles/avatar/public/2020-07/icon_accessibility_on-dark.jpg"/> </a>
+  <a href="/">Home</a>
+  <a href="logout">Uitloggen</a>
+</nav>
+
+</div>
+</body>
+</html>

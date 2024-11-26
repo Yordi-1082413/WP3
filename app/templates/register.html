@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="{{url_for('static',path="/css/register.css")}}" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+        <div class="stripe"></div>
+        <div class="stripe2"></div>
+        <div class="form-container">
+            <form method="POST" action="/newregister">
+                <div class="input-box">
+                    <input class="input" type="text" name="username" placeholder="Gebruikersnaam" required/><br>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="input-box">
+                    <input class="input" type="password" name="password" placeholder="Wachtwoord" required/><br>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="input-box">
+                    <input class="input" type="email" name="email" placeholder="Email" required/><br>
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="fullname-container input-box">
+                        <input class="input2" type="text" name="firstname" placeholder="Voornaam" required/><br>
+                        <input class="input2" type="text" name="infex" placeholder="Tussenvoegsel" /><br>
+                        <input class="input2" type="text" name="lastname" placeholder="Achternaam" required/><br>
+                        <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="input-box">
+                    <i class="fa-solid fa-venus-mars"></i>
+                    <select class="inputselect" name="sex">
+                        <option value="anders" disabled selected>Selecteer je geslacht</option>
+                        <option value="man">Man</option>
+                        <option value="vrouw">Vrouw</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <input class="input" type="date" name="dateofbirth" placeholder="Geboortedatum" required/><br>
+                    <i class="fa-solid fa-cake-candles"></i>
+                </div>
+                <div class="input-box">
+                    <input class="input" type="text" name="phonenumber" placeholder="Telefoonnummer" required/><br>
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="input-box">
+                    <input class="input" type="text" name="postalcode" placeholder="Postcode" required/><br>
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <div class="input-box">
+                    <input class="input" type="text" name="addres" placeholder="Adres" required/><br>
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <div class="input-box">
+                    <input class="input" type="text" name="addaddres" placeholder="Toevoeging Adres"/><br>
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <button class="button" type="submit">Registreer</button>
+            </form>
+        </div>
+        <script src="/static/js/jqeury.js"></script>
+    </body>
+</html>

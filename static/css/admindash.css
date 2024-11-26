@@ -1,0 +1,308 @@
+* {
+  font-family: sans-serif;
+  overflow-y: none;
+
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height:  1.6;
+  color: #333;
+  background-color: #f4f4f4;
+  margin:  0;
+  padding:  0;
+  background-image: url("https://www.test-correct.nl/hubfs/Background-Triangles-grey.svg");
+  overflow-x: hidden;
+}
+
+.navcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.navbar.admin {
+    background-color: rgb(48,80,235);
+    color: #FFFFFF;
+    width: 80%;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 16px;
+    padding: 15px;
+    margin-top: -25px;
+    box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1);
+}
+
+.menu-toggle {
+    padding: 0 20px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.nav-title {
+    margin-left: auto;
+    margin-right: 45%;
+    text-align: center;
+}
+
+
+.sidebar {
+    background-color: rgb(48,80,235);
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -240px;
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+}
+
+.menu a {
+    display: block;
+    padding: 10px 20px;
+    color: rgb(190, 199, 255);
+    text-decoration: none;
+    border: none;
+
+}
+
+.menu a:hover{
+    background-color: rgb(237,237,255);
+    color: rgb(43, 72, 215);
+}
+
+.menu a.active {
+    background-color: rgb(43, 72, 215);
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.menu h3 {
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.lijntje {
+    width: 70%;
+    margin-top: -15px;
+}
+
+.lijn {
+    width: 40%;
+    margin-top: -15px;
+    border-top: 2px solid rgb(48,80,235);;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.submenu-content li {
+    padding-left: 40px;
+}
+
+.submenu-content a {
+    color: #555;
+}
+
+
+.paperpage {
+    width: 65%;
+    min-height: 100vh;
+    padding: 10mm;
+    margin: 10mm auto; /* Center the paper page horizontally */
+    background: white;
+    box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1); /* Optional: Adds shadow around the paper to give depth */
+}
+
+  .titel{
+    text-align: center;
+    font-weight: bold;
+  }
+
+.section {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#gegevens-totaal {
+    background-color: #eff2fb;
+}
+
+#andere-sectie {
+    background-color: #f7f7f7;
+}
+
+.section-title {
+    text-align: center;
+    color:rgb(48,80,235);
+}
+
+
+.statistieken-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    min-width: 70%;
+    max-width: 100%;
+    margin: auto;
+    padding: 10px;
+  }
+
+.statistiek {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 15px;
+  }
+
+.statistiek-titel {
+  color: rgb(48,80,235);
+  margin-bottom: 0px;
+    text-align: center;
+}
+
+.statistiekinfo{
+  margin-top: 20px;
+  color: rgb(166,175,184);
+    text-align: center;
+}
+
+.statistiekinfo-omsch{
+    font-weight: normal;
+    color: rgb(166,175,184);
+    text-align: center;
+}
+
+.statistiekinfo + .statistiekinfo-omsch{
+    margin-top:10px;
+}
+
+.statistiekinfo span {
+    color: #dc0606;
+}
+.statbutton{
+  background-color: rgb(237,237,255);
+  border: none;
+  color: rgb(48,80,235);
+  padding: 6px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.statbutton:hover{
+  background-color: rgb(48,80,235);
+  color: white;
+    transition: 0.3s ease-in-out;
+}
+
+.pageinfo{
+  color: rgb(166,175,184);
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+h4 {
+  padding: 0;
+  margin: 0;
+}
+
+
+.noinfo{
+  margin-top: 100px;
+  text-align: center;
+}
+
+#live-updates {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#latest-users,
+#latest-registrations,
+#latest-requests {
+    margin-bottom: 20px;
+}
+
+#latest-users h2,
+#latest-registrations h2,
+#latest-requests h2 {
+    color: rgb(48, 80, 235);
+    margin-bottom: 10px;
+}
+
+#latest-users a,
+#latest-registrations a,
+#latest-requests a {
+    color: inherit;
+    text-decoration: none;
+}
+
+#latest-users a:hover,
+#latest-registrations a:hover,
+#latest-requests a:hover {
+    text-decoration: underline;
+}
+
+#latest-users-list,
+#latest-registrations-list,
+#latest-requests-list {
+    list-style: none;
+    padding: 0;
+}
+
+#latest-users-list li,
+#latest-registrations-list li,
+#latest-requests-list li {
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+#latest-users-list li:last-child,
+#latest-registrations-list li:last-child,
+#latest-requests-list li:last-child {
+    margin-bottom: 0;
+}
+
+
+@media print {
+    body, .paperPage {
+        margin: 0;
+        box-shadow: none;
+    }
+}
+

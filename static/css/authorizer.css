@@ -1,0 +1,192 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height:  1.6;
+  color: #333;
+  background-color: #f4f4f4;
+  margin:  0;
+  padding:  0;
+  background-image: url("https://www.test-correct.nl/hubfs/Background-Triangles-grey.svg");
+  overflow-x: hidden;
+}
+
+  .input-box {
+    position: relative;
+    margin-top: 30px;
+    width: 100%;
+    height: 40px;
+  }
+
+  .titel{
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .fa-user-shield{
+    color: rgb(87,157,45);
+    font-size: 40px;
+  }
+
+.requestContainerAuthorizer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width:  960px;
+    margin: auto;
+    padding:  210px;
+  }
+
+  .routinButton{
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    background-color: rgb(48 48 48);
+    color: white;
+    padding: 20px;
+    margin-top: 40px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 15px;
+  }
+
+  .requestItem {
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+    border-radius: 15px;
+  }
+
+  .requestIteminfo{
+    padding: 5px;
+    font-size: 20px;
+  }
+
+  .routinButton:hover, .routinButton:focus {
+    background-color: black;
+    outline: none;
+  }
+
+  .btn-group{
+    display: flex;
+  }
+
+  .acceptRequestButton{
+    text-decoration: none;
+    text-align: center;
+    background-color: rgb(48,80,235);
+    color: white;
+    width: 50%;
+    border-bottom-left-radius: 10px;
+  }
+  .declineRequestButton{
+    text-decoration: none;
+    text-align: center;
+    background-color: Red;
+    color: white;
+    width: 50%;
+    border-bottom-right-radius: 10px;
+  }
+
+.paperpage {
+    width: 65%;
+    min-height: 100vh;
+    padding: 10mm;
+    margin: 10mm auto; /* Center the paper page horizontally */
+    background: white; /* Paper color */
+    box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1); /* Optional: Adds shadow around the paper to give depth */
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+  border-radius: 15px;
+  }
+
+.cardtitel{
+  color: rgb(48,80,235);
+  margin-bottom: 0px;
+}
+
+.cardinfo{
+  margin-top: 20px;
+  color: rgb(166,175,184)
+}
+
+.cardbutton{
+  background-color: rgb(237,237,255);
+  border: none;
+  color: rgb(48,80,235);
+  padding: 6px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 100px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.cardbutton:hover{
+  background-color: rgb(48,80,235);
+  color: white;
+}
+
+.pageinfo{
+  color: rgb(166,175,184);
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+h4{
+  padding: 0;
+  margin: 0;
+}
+
+button{
+  background-color: rgb(237,237,255);
+  border: none;
+  color: rgb(48,80,235);
+  padding: 12px 10px;
+  text-decoration: none;
+  display: flex;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 225px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button:hover{
+  background-color: rgb(48,80,235);
+  color: white;
+}
+
+.noinfo{
+  margin-top: 100px;
+  text-align: center;
+}
+  
+@media print {
+    body, .paperPage {
+        margin: 0;
+        box-shadow: none;
+    }
+}

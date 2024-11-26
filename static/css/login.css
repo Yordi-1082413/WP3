@@ -1,0 +1,99 @@
+* {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #2b50ec !important;
+}
+
+.stripe {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 180px solid rgb(217, 235, 247);
+  border-right: 1300px solid transparent;
+}
+
+.stripe2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 400px solid rgb(31, 195, 150);
+  border-left: 1300px solid transparent;
+}
+
+.form-container {
+  margin-top: 150px;
+  padding: 25px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 500px !important;
+  max-width: 500px;
+  min-height: 310px;
+  max-height: 400px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-collapse: collapse;
+  border-radius: 5px 5px 5px 5px;
+  background-color: #fff;
+}
+
+.titel {
+  text-align: center;
+}
+
+.input-box {
+  position: relative;
+  margin-top: 30px;
+  width: 100%;
+  height: 40px;
+}
+
+.input {
+  margin-top: 2px;
+  font-size: 1em;
+  padding: 0 30px;
+  height: 100%;
+  width: 100%;
+  border: none;
+  color: #333;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid #aaaaaa;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2b50ec;
+}
+
+.input-box i {
+  position: absolute;
+  top: 50%;
+  font-size: 20px;
+  transform: translateY(-50%);
+}
+
+.button {
+  background-color: #2b50ec;
+  color: white;
+  border: none;
+  margin-top: 30px;
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 10px;
+}
+
+.register {
+  margin-top: 5px;
+  color: gray;
+}
+
+.errormessage {
+  text-align: center;
+  margin-top: 15px;
+  color: red;
+}

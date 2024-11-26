@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ervaringsdeskundige aanvragingen</title>
+    <link href="{{url_for('static',path="/css/authorizer.css")}}" rel="stylesheet"/>
+    {% include 'navbar.html' %}
+</head>
+
+  <body>
+    <div class="parent">       
+      <div class="paperpage">
+        <button class="backbutton" onclick="history.back()" aria-label="Terug naar vorige pagina">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M256 32C132.265 32 48 146.265 48 256s84.265 224 224 224 224-84.265 224-224S379.735 32 256 32zm0 422C107.467 456 48 396.533 48 320s59.467-136 136-136 136 59.467 136 136-59.467 136-136S396.533 48 320 48s-136 59.467-136 136 59.467 136 136-59.467 136-136 136zM212.667 284.667l-14.134-14.134c-4.686-4.686-4.686-12.284 0-16.971l7.029-7.029c4.686-4.686 12.284-4.686 16.971 0l91.646 91.646c4.686 4.686 4.686 12.284 0 16.971l-7.029 7.029c-4.686 4.686-12.284 4.686-16.971 0l-112-112-112 112c-4.686 4.686-12.284 4.686-16.971 0l-7.029-7.029c-4.686-4.686-4.686-12.284 0-16.971l91.646-91.646c4.686-4.686 12.284-4.686 16.971 0l14.134 14.134z"></path></svg>
+        </button>
+        <h1 class="titel">Ervaringsdeskundige aanvragingen</h1>
+        <h3 class="pageinfo">Op deze pagina kan je alle aanvragingen van gebruikers vinden om een ervaringsdeskundige te worden!<br>De aanvragingen die gedaan zijn kan je op deze pagina goedkeuren of afkeuren!</h3>
+        <div id="requestContainerExpert">
+        </div>
+      </div>
+    </div>
+    <script src="/static/js/jqeury.js"></script>
+
+    <script>
+    $(document).ready(function () {
+      function fetchAllExpertRequests() {
+        $.ajax({
+          url: "/routes/getrequestfromexperts",
+          type: "GET",
+          dataType: "json",
+          success: function (response) {
+            console.log(response.requests.length)
+            var requestHtml = "";
+            if(response.requests.length === 0){
+                  requestHtml += '<h4 class="noinfo">Er zijn op het moment geen aanvragingen!</h4>';
+                }
+            $.each(response.requests, function (index, request) {
+                requestHtml += '<div class="requestItem">';
+                requestHtml += '<div class="requestIteminfo"><b>Gebruikersnaam: </b>' + request.gebruikersnaam + '</div>';
+                requestHtml += '<div class="requestIteminfo"><b>Email: </b>' + request.email + '</div>';
+                requestHtml += '<div class="requestIteminfo"><b>Telefoonnummer: </b>' + request.telefoonnummer + '</div>';
+                requestHtml += '<div class="btn-group">'
+                requestHtml += '<a class="acceptRequestButton" href="/acceptrequestexpert/'+ request.aanvrager_id +'">Goedkeuren</a>';
+                requestHtml += '<a class="declineRequestButton" href="/declinerequestexpert/'+ request.aanvrager_id +'">Afkeuren</a>';
+                requestHtml += '</div>';
+                requestHtml += "</div>";
+            });
+            $("#requestContainerExpert").html(requestHtml); // Insert generated HTML into the page
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error: " + textStatus, errorThrown);
+          },
+        });
+      }
+
+      // on first run execute the fetchUnderzoeken function
+      fetchAllExpertRequests();
+
+      // Sets an interval, runs the fetchUnderzoeken function every  10 seconds
+      setInterval(fetchAllExpertRequests,  10000);
+    });
+    </script>
+  </body>
+</html>

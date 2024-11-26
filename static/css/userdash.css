@@ -1,0 +1,254 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height:  1.6;
+  color: #333;
+  background-color: #f4f4f4;
+  margin:  0;
+  padding:  0;
+  background-image: url("https://www.test-correct.nl/hubfs/Background-Triangles-grey.svg");
+  overflow-x: hidden;
+}
+
+
+h1 {
+  font-family:var(--font-display),sans-serif;
+  font-size:40px;
+  font-weight:380;
+  letter-spacing:-.01em;
+  line-height:95%;
+  text-align: center;
+  padding:  20px;
+
+}
+
+h3 {
+  text-align: center;
+}
+
+.page-end-rounded {
+  --tw-border-opacity:1;
+  border-bottom-left-radius:36px;
+  border-bottom-right-radius:36px;
+  border-bottom-width:1px;
+  border-color:rgb(207 207 207/var(--tw-border-opacity));
+  border-style:solid;
+  overflow:hidden
+}
+
+
+#requestContainer {
+  max-width:  960px;
+  margin: auto;
+  padding:  20px;
+}
+
+/* Styles per item */
+.requestItem {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+  border-radius: 15px;
+}
+
+
+.actionContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top:  10px;
+}
+
+.viewDetailsBtn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4274aa; 
+  color: #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  border: none;
+  border-radius: 10px;
+}
+.viewDetailsBtn:hover, .viewDetailsBtn:focus {
+  background-color: #003875;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+
+}
+
+
+
+/* Accessibility improvements */
+a:focus {
+  outline: none;
+}
+
+a:hover, a:focus {
+  text-decoration: underline; 
+}
+
+.highContrastText {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.paperpage {
+  width: 65%;
+  min-height: 100vh;
+  padding: 20mm;
+  margin: 10mm auto; /* Center the paper page horizontally */
+  background: white; /* Paper color */
+  box-shadow: 0 0 5mm rgba(0, 0, 0, 0.1); /* Optional: Adds shadow around the paper to give depth */
+}
+
+@media print {
+  body, .paperPage {
+      margin: 0;
+      box-shadow: none;
+  }
+}
+
+/* Style the modal */
+#onderzoekPopupModal {
+  position: fixed;
+  z-index:  1;
+  left:  0;
+  top:  0;
+  width:  100%;
+  height:  100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin:  15% auto;
+  padding:  20px;
+  border:  1px solid #888;
+  width:  80%;
+  max-width:  500px;
+  transform: translate(-50%, -50%); 
+  position: absolute; 
+  top:  30%; 
+  left:  50%; 
+  border-radius: 10px;
+
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size:  28px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Submit button for applying */
+
+.knoppen a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4274aa; 
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  border: none;
+  border-radius: 10px;
+}
+
+.knoppen a:hover, .knoppen a:focus{
+  background-color: #003875;
+  outline: none;
+  cursor: pointer;
+}
+
+dialog {
+  width: 300px;
+  border: none;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+ }
+
+
+/* CSS For the reviewCompanyRequests */
+.btn-group {
+  display: flex;
+  bottom: 0;
+  width: 100%;
+ }
+ 
+ .acceptRequestButton {
+  background-color: #28a74e;
+  color: white;
+  border: none;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+ }
+ 
+ .declineRequestButton {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+ }
+ 
+ .acceptRequestButton,
+ .declineRequestButton {
+  transition: all 0.3s ease;
+  transform: scale(1);
+ }
+ 
+ .acceptRequestButton:hover{
+  background-color: #218838;
+  transform: scale(1.01);
+ }
+ .declineRequestButton:hover {
+  background-color: #a81524d7;
+  transform: scale(1.01); 
+ }
+
+
+ 
+ .backbutton {
+  background-color: transparent; 
+  border: none; 
+  color: #333;
+  font-size: 32px;
+  cursor: pointer; 
+ }
+ 
+ .backbutton:hover {
+  color: #000;
+  transform: scale(1.05); 
+ }
+ 

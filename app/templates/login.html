@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link href="{{url_for('static',path="/css/login.css")}}" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+        <div class="stripe"></div>
+        <div class="stripe2"></div>
+        <div class="form-container">
+            <form method="POST" action="/token">
+                <h2 class="titel">Login</h2>
+                <div class="input-box">
+                    <input class="input" type="text" name="username" placeholder="Username" required/><br>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="input-box">
+                    <input class="input" type="password" name="password" placeholder="Password" required/><br>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <button class="button" type="submit">Submit</button>
+                <a class="register" href="/register">Registeer je hier...</a>
+                <div class="errormessage">{{msg}}</div>
+            </form>
+        </div>
+    </body>
+</html>
